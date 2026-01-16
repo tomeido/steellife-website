@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company Introduction - STEELLIFE</title>
+    <meta name="description" content="Detailed company introduction and project portfolio of STEELLIFE Co., Ltd.">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        steel: {
+                            900: '#363b42',
+                            950: '#1a1d21',
+                        },
+                        accent: {
+                            blue: '#3b82f6',
+                        }
+                    },
+                    fontFamily: {
+                        'sans': ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .slide-container {
+            aspect-ratio: 16/9;
+            max-height: 80vh;
+        }
+
+        /* Hide scrollbar for grid view */
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+
+<body class="bg-steel-950 text-white min-h-screen flex flex-col">
+
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-steel-950/90 backdrop-blur-md border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-2 hover:text-accent-blue transition-colors">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                </svg>
+                <span class="font-medium">Back to Home</span>
+            </a>
+            <div class="text-lg font-bold">
+                <span class="text-white">STEEL</span><span class="text-accent-blue">LIFE</span> <span
+                    class="text-gray-500 text-sm ml-2">Company Introduction</span>
+            </div>
+            <div class="w-24 text-right text-sm text-gray-400">
+                <span id="current-slide-display">1</span> / <span id="total-slides-display">144</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow flex flex-col items-center justify-center pt-20 pb-20 px-4">
+
+        <!-- Viewer Container -->
+        <div class="w-full max-w-6xl mx-auto flex flex-col gap-6">
+
+            <!-- Main Slide View -->
+            <div class="relative w-full bg-black/50 rounded-lg overflow-hidden shadow-2xl slide-container group">
+                <img id="main-slide" src="" alt="Presentation Slide" class="w-full h-full object-contain">
+
+                <!-- Navigation Overlays -->
+                <button id="prev-btn"
+                    class="absolute left-0 top-0 bottom-0 w-16 md:w-24 flex items-center justify-center bg-gradient-to-r from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity focus:outline-none">
+                    <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7">
+                        </path>
+                    </svg>
+                </button>
+                <button id="next-btn"
+                    class="absolute right-0 top-0 bottom-0 w-16 md:w-24 flex items-center justify-center bg-gradient-to-l from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity focus:outline-none">
+                    <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </button>
+
+                <!-- Loading Spinner -->
+                <div id="loading" class="absolute inset-0 flex items-center justify-center bg-steel-900 z-[-1]">
+                    <div class="w-8 h-8 border-4 border-accent-blue border-t-transparent rounded-full animate-spin">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Thumbnail Strip / Controls -->
+            <div class="w-full flex items-center gap-4 bg-steel-900/50 p-4 rounded-lg backdrop-blur-sm">
+                <button id="grid-view-btn" class="p-2 hover:bg-white/10 rounded transition-colors" title="Grid View">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z">
+                        </path>
+                    </svg>
+                </button>
+
+                <input type="range" id="slide-scrubber" min="1" max="144" value="1"
+                    class="flex-grow h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-accent-blue">
+
+                <div class="flex gap-2">
+                    <button class="px-3 py-1 text-xs bg-white/10 hover:bg-white/20 rounded section-jump"
+                        data-target="2">Index</button>
+                    <button class="px-3 py-1 text-xs bg-white/10 hover:bg-white/20 rounded section-jump"
+                        data-target="16">Projects</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Grid View Modal -->
+    <div id="grid-modal" class="fixed inset-0 z-[100] bg-steel-950/95 backdrop-blur hidden overflow-y-auto">
+        <div class="max-w-7xl mx-auto p-8">
+            <div
+                class="flex justify-between items-center mb-8 sticky top-0 bg-steel-950/95 py-4 z-10 border-b border-white/10">
+                <h2 class="text-2xl font-bold">All Slides</h2>
+                <button id="close-grid" class="p-2 hover:bg-white/10 rounded-full">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                        </path>
+                    </svg>
+                </button>
+            </div>
+            <div id="grid-container" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                <!-- Grid items injected by JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Data & Scripts -->
+    <script src="js/slide-data.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let currentIndex = 1;
+            const totalSlides = slideData.totalSlides;
+
+            // Elements
+            const mainSlide = document.getElementById('main-slide');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const scrubber = document.getElementById('slide-scrubber');
+            const currentDisplay = document.getElementById('current-slide-display');
+            const totalDisplay = document.getElementById('total-slides-display');
+            const gridBtn = document.getElementById('grid-view-btn');
+            const gridModal = document.getElementById('grid-modal');
+            const closeGrid = document.getElementById('close-grid');
+            const gridContainer = document.getElementById('grid-container');
+
+            // Initialize
+            totalDisplay.textContent = totalSlides;
+            scrubber.max = totalSlides;
+            updateSlide(1);
+
+            // Functions
+            function updateSlide(index) {
+                if (index < 1) index = 1;
+                if (index > totalSlides) index = totalSlides;
+
+                currentIndex = index;
+                mainSlide.src = slideData.getSlidePath(currentIndex);
+                currentDisplay.textContent = currentIndex;
+                scrubber.value = currentIndex;
+
+                // Prefetch next slide
+                if (currentIndex < totalSlides) {
+                    const nextImg = new Image();
+                    nextImg.src = slideData.getSlidePath(currentIndex + 1);
+                }
+            }
+
+            function toggleGrid() {
+                gridModal.classList.toggle('hidden');
+                if (!gridModal.classList.contains('hidden') && gridContainer.children.length === 0) {
+                    populateGrid();
+                }
+                document.body.style.overflow = gridModal.classList.contains('hidden') ? 'auto' : 'hidden';
+            }
+
+            function populateGrid() {
+                // Generate thumbnails lazily
+                for (let i = 1; i <= totalSlides; i++) {
+                    const div = document.createElement('div');
+                    div.className = 'cursor-pointer hover:ring-2 ring-accent-blue rounded overflow-hidden transition-all hover:scale-105';
+                    div.innerHTML = `
+                        <div class="aspect-video bg-gray-800 relative">
+                            <img src="${slideData.getSlidePath(i)}" loading="lazy" class="w-full h-full object-cover">
+                            <div class="absolute bottom-0 right-0 bg-black/70 text-xs px-2 py-0.5">${i}</div>
+                        </div>
+                    `;
+                    div.onclick = () => {
+                        updateSlide(i);
+                        toggleGrid();
+                    };
+                    gridContainer.appendChild(div);
+                }
+            }
+
+            // Event Listeners
+            prevBtn.onclick = () => updateSlide(currentIndex - 1);
+            nextBtn.onclick = () => updateSlide(currentIndex + 1);
+
+            scrubber.oninput = (e) => updateSlide(parseInt(e.target.value));
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowLeft') updateSlide(currentIndex - 1);
+                if (e.key === 'ArrowRight') updateSlide(currentIndex + 1);
+                if (e.key === 'Escape' && !gridModal.classList.contains('hidden')) toggleGrid();
+            });
+
+            gridBtn.onclick = toggleGrid;
+            closeGrid.onclick = toggleGrid;
+
+            // Section Jumps
+            document.querySelectorAll('.section-jump').forEach(btn => {
+                btn.onclick = () => updateSlide(parseInt(btn.dataset.target));
+            });
+        });
+    </script>
+</body>
+
+</html>
