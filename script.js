@@ -467,22 +467,45 @@ if (contactForm) {
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
+        const href = this.getAttribute('href');
+
+        // Handle # only (logo click - scroll to top)
+        if (href === '#') {
+            if (typeof gsap !== 'undefined' && gsap.plugins && gsap.plugins.scrollTo) {
+                gsap.to(window, {
+                    duration: 1,
+                    scrollTo: { y: 0, offsetY: 0 },
+                    ease: 'power3.inOut'
+                });
+            } else {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+            return;
+        }
+
+        const target = document.querySelector(href);
 
         if (target) {
             // Close mobile menu if open
-            if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
-                mobileMenu.classList.add('hidden');
+            if (isMobileMenuOpen) {
+                closeMobileMenu();
             }
 
-            gsap.to(window, {
-                duration: 1,
-                scrollTo: {
-                    y: target,
-                    offsetY: 80
-                },
-                ease: 'power3.inOut'
-            });
+            // Use GSAP if available, otherwise native smooth scroll
+            if (typeof gsap !== 'undefined' && gsap.plugins && gsap.plugins.scrollTo) {
+                gsap.to(window, {
+                    duration: 1,
+                    scrollTo: {
+                        y: target,
+                        offsetY: 80
+                    },
+                    ease: 'power3.inOut'
+                });
+            } else {
+                // Native fallback
+                const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - 80;
+                window.scrollTo({ top: targetPosition, behavior: 'smooth' });
+            }
         }
     });
 });
