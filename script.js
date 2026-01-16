@@ -25,7 +25,7 @@ const contactForm = document.getElementById('contact-form');
 // State Variables
 // =====================================================
 let currentSlide = 0;
-let totalSlides = 3;
+let totalSlides = 5;
 let isKorean = false;
 let autoSlideInterval;
 let isMobileMenuOpen = false;
