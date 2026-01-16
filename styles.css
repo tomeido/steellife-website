@@ -1,0 +1,443 @@
+/* STEELLIFE Co., Ltd. - Custom Styles */
+/* Premium Architecture Website Aesthetics */
+
+/* =====================================================
+   CSS Custom Properties (Design Tokens)
+   ===================================================== */
+:root {
+    --steel-50: #f4f6f7;
+    --steel-100: #e3e7ea;
+    --steel-200: #cad1d7;
+    --steel-300: #a5b1ba;
+    --steel-400: #798896;
+    --steel-500: #5e6d7b;
+    --steel-600: #505c68;
+    --steel-700: #454e58;
+    --steel-800: #3d444c;
+    --steel-900: #363b42;
+    --steel-950: #1a1d21;
+    
+    --accent-blue: #3b82f6;
+    --accent-silver: #c0c0c0;
+    
+    --transition-fast: 150ms;
+    --transition-normal: 300ms;
+    --transition-slow: 500ms;
+    --transition-slower: 700ms;
+}
+
+/* =====================================================
+   Base Styles & Resets
+   ===================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px;
+}
+
+body {
+    overflow-x: hidden;
+    background-color: var(--steel-950);
+}
+
+/* Selection styling */
+::selection {
+    background-color: var(--accent-blue);
+    color: white;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--steel-950);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--steel-700);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--steel-600);
+}
+
+/* =====================================================
+   Navigation Styles
+   ===================================================== */
+#navbar {
+    background: transparent;
+    transition: background-color var(--transition-slow) ease,
+                backdrop-filter var(--transition-slow) ease,
+                padding var(--transition-slow) ease;
+}
+
+#navbar.scrolled {
+    background: rgba(26, 29, 33, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(69, 78, 88, 0.3);
+}
+
+#navbar.scrolled nav {
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+}
+
+.nav-link {
+    position: relative;
+    padding-bottom: 2px;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--accent-blue);
+    transition: width var(--transition-normal) ease;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+/* =====================================================
+   Hero Section Styles
+   ===================================================== */
+#hero {
+    height: 100vh;
+    min-height: 600px;
+}
+
+.hero-strip {
+    transition: transform var(--transition-slower) ease;
+}
+
+.hero-strip:hover {
+    transform: scale(1.02);
+}
+
+.hero-strip img {
+    transition: transform 8s ease;
+}
+
+.hero-strip:hover img {
+    transform: scale(1.1);
+}
+
+/* Project labels styling */
+.project-label {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all var(--transition-normal) ease;
+}
+
+.hero-strip:hover + .project-labels .project-label,
+#hero:hover .project-label {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Scroll indicator animation */
+.scroll-indicator {
+    animation: scrollBounce 2s ease-in-out infinite;
+}
+
+@keyframes scrollBounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(8px);
+    }
+}
+
+/* =====================================================
+   About Section Styles
+   ===================================================== */
+.stat-number {
+    background: linear-gradient(135deg, #ffffff 0%, var(--steel-300) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.about-image::before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    width: 100%;
+    height: 100%;
+    border: 1px solid var(--steel-700);
+    z-index: -1;
+}
+
+/* =====================================================
+   Products Section Styles
+   ===================================================== */
+.product-card {
+    position: relative;
+}
+
+.product-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 1px solid transparent;
+    transition: border-color var(--transition-normal) ease;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.product-card:hover::before {
+    border-color: var(--accent-blue);
+}
+
+/* =====================================================
+   Portfolio Section Styles
+   ===================================================== */
+.portfolio-slider {
+    position: relative;
+}
+
+.portfolio-track {
+    will-change: transform;
+}
+
+.portfolio-slide {
+    flex-shrink: 0;
+}
+
+.portfolio-slide img {
+    filter: grayscale(20%);
+    transition: filter var(--transition-normal) ease,
+                transform var(--transition-slower) ease;
+}
+
+.portfolio-slide:hover img {
+    filter: grayscale(0%);
+}
+
+/* Slide dots */
+.slide-dot {
+    transition: all var(--transition-normal) ease;
+    cursor: pointer;
+}
+
+.slide-dot:hover {
+    background-color: var(--steel-500);
+}
+
+.slide-dot.active {
+    background-color: var(--accent-blue);
+    width: 24px;
+    border-radius: 4px;
+}
+
+/* =====================================================
+   Technology Section Styles
+   ===================================================== */
+.tech-item {
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: all var(--transition-slow) ease;
+}
+
+.tech-item.animate {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Precision circle */
+.tech-image > div:last-child {
+    animation: pulse 3s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4);
+    }
+    50% {
+        box-shadow: 0 0 0 15px rgba(59, 130, 246, 0);
+    }
+}
+
+/* =====================================================
+   Contact Section Styles
+   ===================================================== */
+#contact-form input:focus,
+#contact-form select:focus,
+#contact-form textarea:focus {
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+#contact-form button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3);
+}
+
+#contact-form button:active {
+    transform: translateY(0);
+}
+
+/* =====================================================
+   Footer Styles
+   ===================================================== */
+footer a {
+    transition: color var(--transition-fast) ease;
+}
+
+/* =====================================================
+   Animation Classes (used by GSAP)
+   ===================================================== */
+.fade-up {
+    opacity: 0;
+    transform: translateY(40px);
+}
+
+.fade-in {
+    opacity: 0;
+}
+
+.scale-up {
+    opacity: 0;
+    transform: scale(0.9);
+}
+
+.slide-left {
+    opacity: 0;
+    transform: translateX(-60px);
+}
+
+.slide-right {
+    opacity: 0;
+    transform: translateX(60px);
+}
+
+/* =====================================================
+   Utility Classes
+   ===================================================== */
+.glass {
+    background: rgba(54, 59, 66, 0.5);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.text-gradient {
+    background: linear-gradient(135deg, #ffffff 0%, var(--accent-blue) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* =====================================================
+   Responsive Adjustments
+   ===================================================== */
+@media (max-width: 768px) {
+    #hero .flex {
+        flex-wrap: wrap;
+    }
+    
+    .hero-strip {
+        width: 50% !important;
+        height: 50vh;
+    }
+    
+    .project-label {
+        display: none;
+    }
+    
+    .hero-title span {
+        font-size: 2.5rem;
+    }
+    
+    .about-image::before {
+        display: none;
+    }
+    
+    .tech-image > div:last-child {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .tech-image > div:last-child span {
+        font-size: 1.25rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-strip {
+        width: 100% !important;
+        height: 25vh;
+    }
+    
+    .stat-number {
+        font-size: 1.75rem;
+    }
+}
+
+/* =====================================================
+   Loading State
+   ===================================================== */
+.loading-overlay {
+    position: fixed;
+    inset: 0;
+    background: var(--steel-950);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity var(--transition-slow) ease;
+}
+
+.loading-overlay.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.loader {
+    width: 40px;
+    height: 40px;
+    border: 3px solid var(--steel-800);
+    border-top-color: var(--accent-blue);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* =====================================================
+   Print Styles
+   ===================================================== */
+@media print {
+    #navbar,
+    .scroll-indicator,
+    #contact-form,
+    footer {
+        display: none !important;
+    }
+    
+    body {
+        background: white;
+        color: black;
+    }
+    
+    section {
+        page-break-inside: avoid;
+    }
+}
