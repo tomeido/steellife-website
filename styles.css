@@ -16,10 +16,10 @@
     --steel-800: #3d444c;
     --steel-900: #363b42;
     --steel-950: #1a1d21;
-    
+
     --accent-blue: #3b82f6;
     --accent-silver: #c0c0c0;
-    
+
     --transition-fast: 150ms;
     --transition-normal: 300ms;
     --transition-slow: 500ms;
@@ -75,8 +75,8 @@ body {
 #navbar {
     background: transparent;
     transition: background-color var(--transition-slow) ease,
-                backdrop-filter var(--transition-slow) ease,
-                padding var(--transition-slow) ease;
+        backdrop-filter var(--transition-slow) ease,
+        padding var(--transition-slow) ease;
 }
 
 #navbar.scrolled {
@@ -142,7 +142,7 @@ body {
     transition: all var(--transition-normal) ease;
 }
 
-.hero-strip:hover + .project-labels .project-label,
+.hero-strip:hover+.project-labels .project-label,
 #hero:hover .project-label {
     opacity: 1;
     transform: translateY(0);
@@ -154,9 +154,12 @@ body {
 }
 
 @keyframes scrollBounce {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: translateY(0);
     }
+
     50% {
         transform: translateY(8px);
     }
@@ -222,7 +225,7 @@ body {
 .portfolio-slide img {
     filter: grayscale(20%);
     transition: filter var(--transition-normal) ease,
-                transform var(--transition-slower) ease;
+        transform var(--transition-slower) ease;
 }
 
 .portfolio-slide:hover img {
@@ -260,14 +263,17 @@ body {
 }
 
 /* Precision circle */
-.tech-image > div:last-child {
+.tech-image>div:last-child {
     animation: pulse 3s ease-in-out infinite;
 }
 
 @keyframes pulse {
-    0%, 100% {
+
+    0%,
+    100% {
         box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4);
     }
+
     50% {
         box-shadow: 0 0 0 15px rgba(59, 130, 246, 0);
     }
@@ -342,48 +348,288 @@ footer a {
 }
 
 /* =====================================================
-   Responsive Adjustments
+   Mobile Navigation (Hamburger Menu)
+   ===================================================== */
+.mobile-menu-btn {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 44px;
+    height: 44px;
+    cursor: pointer;
+    z-index: 60;
+    background: transparent;
+    border: none;
+    padding: 8px;
+}
+
+.mobile-menu-btn span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background-color: white;
+    margin: 3px 0;
+    transition: all var(--transition-normal) ease;
+    border-radius: 2px;
+}
+
+.mobile-menu-btn.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.mobile-menu-btn.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.mobile-menu-btn.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
+}
+
+.mobile-nav {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(26, 29, 33, 0.98);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    z-index: 50;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity var(--transition-normal) ease, visibility var(--transition-normal) ease;
+}
+
+.mobile-nav.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.mobile-nav a {
+    font-size: 1.5rem;
+    color: white;
+    text-decoration: none;
+    padding: 1rem 2rem;
+    transition: color var(--transition-fast) ease;
+}
+
+.mobile-nav a:hover {
+    color: var(--accent-blue);
+}
+
+/* =====================================================
+   Responsive Adjustments - Tablet (1024px)
+   ===================================================== */
+@media (max-width: 1024px) {
+    .products-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    .tech-content {
+        flex-direction: column;
+    }
+
+    .portfolio-slide {
+        width: 80vw !important;
+    }
+}
+
+/* =====================================================
+   Responsive Adjustments - Mobile (768px)
    ===================================================== */
 @media (max-width: 768px) {
+
+    /* Show hamburger, hide desktop nav */
+    .mobile-menu-btn {
+        display: flex;
+    }
+
+    .mobile-nav {
+        display: flex;
+    }
+
+    .desktop-nav {
+        display: none !important;
+    }
+
+    .lang-toggle {
+        display: none !important;
+    }
+
+    /* Hero adjustments */
     #hero .flex {
         flex-wrap: wrap;
     }
-    
+
     .hero-strip {
         width: 50% !important;
         height: 50vh;
     }
-    
+
     .project-label {
         display: none;
     }
-    
+
     .hero-title span {
-        font-size: 2.5rem;
+        font-size: 2rem !important;
+        line-height: 1.2;
     }
-    
+
+    .hero-subtitle {
+        font-size: 0.875rem !important;
+        padding: 0 1rem;
+    }
+
+    .hero-cta {
+        padding: 0.75rem 1.5rem !important;
+        font-size: 0.875rem !important;
+    }
+
+    /* About section */
     .about-image::before {
         display: none;
     }
-    
-    .tech-image > div:last-child {
+
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 1.5rem !important;
+    }
+
+    .stat-number {
+        font-size: 2rem !important;
+    }
+
+    /* Products grid */
+    .products-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1rem !important;
+    }
+
+    .product-card {
+        height: 250px !important;
+    }
+
+    /* Portfolio */
+    .portfolio-slide {
+        width: 90vw !important;
+    }
+
+    .portfolio-nav {
+        display: none !important;
+    }
+
+    /* Technology section */
+    .tech-content {
+        flex-direction: column !important;
+        gap: 2rem !important;
+    }
+
+    .tech-image>div:last-child {
         width: 80px;
         height: 80px;
     }
-    
-    .tech-image > div:last-child span {
+
+    .tech-image>div:last-child span {
         font-size: 1.25rem;
+    }
+
+    .tech-list {
+        gap: 1rem !important;
+    }
+
+    /* Contact section */
+    .contact-grid {
+        grid-template-columns: 1fr !important;
+        gap: 2rem !important;
+    }
+
+    .contact-form input,
+    .contact-form select,
+    .contact-form textarea {
+        font-size: 16px !important;
+        /* Prevent zoom on iOS */
+    }
+
+    /* Footer */
+    .footer-content {
+        flex-direction: column !important;
+        gap: 2rem !important;
+        text-align: center;
+    }
+
+    /* Section padding */
+    section {
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+    }
+
+    .section-title {
+        font-size: 2rem !important;
     }
 }
 
+/* =====================================================
+   Responsive Adjustments - Small Mobile (480px)
+   ===================================================== */
 @media (max-width: 480px) {
     .hero-strip {
         width: 100% !important;
         height: 25vh;
     }
-    
+
+    .hero-title span {
+        font-size: 1.5rem !important;
+    }
+
     .stat-number {
-        font-size: 1.75rem;
+        font-size: 1.5rem !important;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    .product-card {
+        height: 200px !important;
+    }
+
+    .section-title {
+        font-size: 1.5rem !important;
+    }
+
+    .mobile-nav a {
+        font-size: 1.25rem;
+    }
+}
+
+/* =====================================================
+   Touch-friendly adjustments
+   ===================================================== */
+@media (hover: none) and (pointer: coarse) {
+    .product-card:hover::before {
+        border-color: transparent;
+    }
+
+    .portfolio-slide img {
+        filter: grayscale(0%);
+    }
+
+    .nav-link::after {
+        display: none;
+    }
+
+    /* Larger touch targets */
+    .nav-link,
+    .mobile-nav a,
+    button {
+        min-height: 44px;
+        min-width: 44px;
     }
 }
 
@@ -425,18 +671,19 @@ footer a {
    Print Styles
    ===================================================== */
 @media print {
+
     #navbar,
     .scroll-indicator,
     #contact-form,
     footer {
         display: none !important;
     }
-    
+
     body {
         background: white;
         color: black;
     }
-    
+
     section {
         page-break-inside: avoid;
     }

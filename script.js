@@ -12,8 +12,8 @@ gsap.registerPlugin(ScrollTrigger);
 // DOM Elements
 // =====================================================
 const navbar = document.getElementById('navbar');
-const menuToggle = document.getElementById('menu-toggle');
-const mobileMenu = document.getElementById('mobile-menu');
+const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+const mobileNav = document.getElementById('mobile-nav');
 const langToggle = document.getElementById('lang-toggle');
 const portfolioTrack = document.querySelector('.portfolio-track');
 const prevSlideBtn = document.getElementById('prev-slide');
@@ -28,6 +28,7 @@ let currentSlide = 0;
 let totalSlides = 3;
 let isKorean = false;
 let autoSlideInterval;
+let isMobileMenuOpen = false;
 
 // =====================================================
 // Navbar Scroll Effect
@@ -46,28 +47,40 @@ handleNavbarScroll(); // Initial check
 // =====================================================
 // Mobile Menu Toggle
 // =====================================================
-if (menuToggle && mobileMenu) {
-    menuToggle.addEventListener('click', () => {
-        mobileMenu.classList.toggle('hidden');
-        
-        // Animate menu icon
-        const paths = menuToggle.querySelectorAll('path');
-        if (!mobileMenu.classList.contains('hidden')) {
-            gsap.to(paths[0], { attr: { d: 'M6 18L18 6' }, duration: 0.3 });
-            gsap.to(paths[1], { opacity: 0, duration: 0.3 });
-            gsap.to(paths[2], { attr: { d: 'M6 6l12 12' }, duration: 0.3 });
-        } else {
-            gsap.to(paths[0], { attr: { d: 'M4 6h16' }, duration: 0.3 });
-            gsap.to(paths[1], { opacity: 1, duration: 0.3 });
-            gsap.to(paths[2], { attr: { d: 'M4 18h16' }, duration: 0.3 });
-        }
-    });
-    
-    // Close menu on link click
-    mobileMenu.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
-            mobileMenu.classList.add('hidden');
-        });
+function toggleMobileMenu() {
+    isMobileMenuOpen = !isMobileMenuOpen;
+
+    if (mobileMenuBtn) {
+        mobileMenuBtn.classList.toggle('active', isMobileMenuOpen);
+    }
+
+    if (mobileNav) {
+        mobileNav.classList.toggle('active', isMobileMenuOpen);
+    }
+
+    // Prevent body scroll when menu is open
+    document.body.style.overflow = isMobileMenuOpen ? 'hidden' : '';
+}
+
+function closeMobileMenu() {
+    isMobileMenuOpen = false;
+    if (mobileMenuBtn) {
+        mobileMenuBtn.classList.remove('active');
+    }
+    if (mobileNav) {
+        mobileNav.classList.remove('active');
+    }
+    document.body.style.overflow = '';
+}
+
+if (mobileMenuBtn) {
+    mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+}
+
+// Close menu on link click
+if (mobileNav) {
+    mobileNav.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', closeMobileMenu);
     });
 }
 
@@ -105,16 +118,16 @@ if (langToggle) {
     langToggle.addEventListener('click', () => {
         isKorean = !isKorean;
         const lang = isKorean ? 'kr' : 'en';
-        
+
         // Update language indicator
         langToggle.querySelector('.lang-en').classList.toggle('text-steel-600', isKorean);
         langToggle.querySelector('.lang-en').classList.toggle('text-steel-400', !isKorean);
         langToggle.querySelector('.lang-kr').classList.toggle('text-steel-400', isKorean);
         langToggle.querySelector('.lang-kr').classList.toggle('text-steel-600', !isKorean);
-        
+
         // Update HTML lang attribute
         document.documentElement.lang = isKorean ? 'ko' : 'en';
-        
+
         // Animate text change
         gsap.to('.hero-title span, .hero-subtitle, .hero-cta', {
             opacity: 0,
@@ -142,13 +155,13 @@ function updateSlider() {
     const slideWidth = document.querySelector('.portfolio-slide')?.offsetWidth || 0;
     const gap = 24; // 6 * 4 (tailwind gap-6)
     const offset = currentSlide * (slideWidth + gap);
-    
+
     gsap.to(portfolioTrack, {
         x: -offset,
         duration: 0.7,
         ease: 'power3.out'
     });
-    
+
     // Update dots
     slideDots.forEach((dot, index) => {
         dot.classList.toggle('active', index === currentSlide);
@@ -205,7 +218,7 @@ if (portfolioTrack) {
         touchStartX = e.changedTouches[0].screenX;
         stopAutoSlide();
     }, { passive: true });
-    
+
     portfolioTrack.addEventListener('touchend', (e) => {
         touchEndX = e.changedTouches[0].screenX;
         handleSwipe();
@@ -216,7 +229,7 @@ if (portfolioTrack) {
 function handleSwipe() {
     const swipeThreshold = 50;
     const diff = touchStartX - touchEndX;
-    
+
     if (diff > swipeThreshold) {
         nextSlide();
     } else if (diff < -swipeThreshold) {
@@ -405,15 +418,15 @@ gsap.from('.contact-form', {
 if (contactForm) {
     contactForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        
+
         // Get form data
         const formData = new FormData(contactForm);
         const data = Object.fromEntries(formData.entries());
-        
+
         // Simulate form submission
         const submitBtn = contactForm.querySelector('button[type="submit"]');
         const originalText = submitBtn.innerHTML;
-        
+
         submitBtn.innerHTML = `
             <svg class="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
@@ -422,7 +435,7 @@ if (contactForm) {
             Sending...
         `;
         submitBtn.disabled = true;
-        
+
         // Simulate API call
         setTimeout(() => {
             submitBtn.innerHTML = `
@@ -433,7 +446,7 @@ if (contactForm) {
             `;
             submitBtn.classList.remove('bg-accent-blue');
             submitBtn.classList.add('bg-green-500');
-            
+
             // Reset form after delay
             setTimeout(() => {
                 contactForm.reset();
@@ -443,7 +456,7 @@ if (contactForm) {
                 submitBtn.disabled = false;
             }, 3000);
         }, 1500);
-        
+
         console.log('Form submitted:', data);
     });
 }
@@ -452,16 +465,16 @@ if (contactForm) {
 // Smooth Scroll for Anchor Links
 // =====================================================
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
+    anchor.addEventListener('click', function (e) {
         e.preventDefault();
         const target = document.querySelector(this.getAttribute('href'));
-        
+
         if (target) {
             // Close mobile menu if open
             if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
                 mobileMenu.classList.add('hidden');
             }
-            
+
             gsap.to(window, {
                 duration: 1,
                 scrollTo: {
@@ -485,7 +498,7 @@ if ('IntersectionObserver' in window) {
             if (entry.isIntersecting) {
                 const img = entry.target;
                 img.classList.add('loaded');
-                
+
                 // Animate image appearance
                 gsap.from(img, {
                     opacity: 0,
@@ -493,14 +506,14 @@ if ('IntersectionObserver' in window) {
                     duration: 0.6,
                     ease: 'power2.out'
                 });
-                
+
                 observer.unobserve(img);
             }
         });
     }, {
         rootMargin: '100px'
     });
-    
+
     lazyImages.forEach(img => imageObserver.observe(img));
 }
 
@@ -524,10 +537,10 @@ document.addEventListener('DOMContentLoaded', () => {
     gsap.set('.hero-title span', { opacity: 0, y: 40 });
     gsap.set('.hero-subtitle', { opacity: 0, y: 20 });
     gsap.set('.hero-cta', { opacity: 0, y: 20 });
-    
+
     // Update slider on load
     setTimeout(updateSlider, 100);
-    
+
     console.log('STEELLIFE website initialized');
 });
 
