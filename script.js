@@ -241,34 +241,7 @@ function handleSwipe() {
 // GSAP Scroll Animations
 // =====================================================
 
-// Hero Section Animations
-gsap.timeline({ delay: 0.5 })
-    .to('.hero-title span', {
-        opacity: 1,
-        y: 0,
-        duration: 1,
-        stagger: 0.15,
-        ease: 'power4.out'
-    })
-    .to('.hero-subtitle', {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        ease: 'power3.out'
-    }, '-=0.5')
-    .to('.hero-cta', {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        ease: 'power3.out'
-    }, '-=0.4')
-    .to('.project-label', {
-        opacity: 1,
-        y: 0,
-        duration: 0.6,
-        stagger: 0.1,
-        ease: 'power2.out'
-    }, '-=0.3');
+// Hero Section Animations are now inside DOMContentLoaded for proper initialization
 
 // Hero parallax effect
 gsap.to('.hero-strip img', {
@@ -560,6 +533,36 @@ document.addEventListener('DOMContentLoaded', () => {
     gsap.set('.hero-title span', { opacity: 0, y: 40 });
     gsap.set('.hero-subtitle', { opacity: 0, y: 20 });
     gsap.set('.hero-cta', { opacity: 0, y: 20 });
+    gsap.set('.project-label', { opacity: 0, y: 20 });
+
+    // Hero Section Animations - run after DOM is ready
+    gsap.timeline({ delay: 0.5 })
+        .to('.hero-title span', {
+            opacity: 1,
+            y: 0,
+            duration: 1,
+            stagger: 0.15,
+            ease: 'power4.out'
+        })
+        .to('.hero-subtitle', {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            ease: 'power3.out'
+        }, '-=0.5')
+        .to('.hero-cta', {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            ease: 'power3.out'
+        }, '-=0.4')
+        .to('.project-label', {
+            opacity: 1,
+            y: 0,
+            duration: 0.6,
+            stagger: 0.1,
+            ease: 'power2.out'
+        }, '-=0.3');
 
     // Update slider on load
     setTimeout(updateSlider, 100);
