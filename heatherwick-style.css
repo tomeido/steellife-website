@@ -23,7 +23,7 @@
 .loading-overlay {
     position: fixed;
     inset: 0;
-    z-index: 9999;
+    z-index: 10005;
     background: var(--bg-primary);
     display: flex;
     align-items: center;
@@ -69,7 +69,7 @@
     align-items: center;
     justify-content: center;
     pointer-events: none;
-    z-index: 999;
+    z-index: 10006;
     opacity: 0;
     transform: translate(-50%, -50%) scale(0.5);
     transition: opacity 0.3s ease, transform 0.3s ease;
@@ -103,7 +103,7 @@
 .project-modal {
     position: fixed;
     inset: 0;
-    z-index: 1000;
+    z-index: 10003;
     background: var(--bg-primary);
     display: flex;
     align-items: center;
@@ -128,7 +128,7 @@
     background: none;
     border: none;
     cursor: pointer;
-    z-index: 1001;
+    z-index: 10004;
     transition: transform 0.3s ease, opacity 0.3s ease;
     opacity: 0.7;
 }
@@ -148,7 +148,7 @@
     background: none;
     border: none;
     cursor: pointer;
-    z-index: 1001;
+    z-index: 10004;
     padding: 1rem;
     opacity: 0.5;
     transition: opacity 0.3s ease, transform 0.3s ease;
@@ -430,7 +430,7 @@ img {
     top: 0;
     left: 0;
     right: 0;
-    z-index: 100;
+    z-index: 10002;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -498,14 +498,15 @@ img {
    ===================================================== */
 .category-bar {
     position: fixed;
-    top: 4.75rem;
+    top: 4.25rem;
     left: 0;
     right: 0;
-    z-index: 99;
+    z-index: 10000;
     display: flex;
     gap: 1rem;
-    padding: 0.5rem 2rem;
-    background: transparent;
+    padding: 0.5rem 2rem 1rem 2rem;
+    background: var(--bg-primary);
+    box-shadow: 0 -0.5rem 0 var(--bg-primary);
 }
 
 .category-btn {
@@ -749,7 +750,7 @@ img {
 .nav-overlay {
     position: fixed;
     inset: 0;
-    z-index: 100;
+    z-index: 10001;
     background: var(--overlay-bg);
     display: flex;
     flex-direction: column;
@@ -1048,11 +1049,13 @@ img {
     }
 
     .category-bar {
-        top: 4rem;
-        padding: 0.5rem 1rem;
+        top: 3.25rem;
+        padding: 0.5rem 1rem 1rem 1rem;
         gap: 0.5rem;
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
+        background: var(--bg-primary);
+        box-shadow: 0 -0.5rem 0 var(--bg-primary);
     }
 
     .category-btn {
