@@ -810,7 +810,7 @@ document.addEventListener('DOMContentLoaded', () => {
         videoContainerLeft.addEventListener('click', () => {
             projectGrid.style.display = 'grid';
             if (studioSection) studioSection.classList.remove('active');
-            document.querySelector('.category-bar').style.display = 'flex';
+            document.querySelector('.category-bar').style.display = '';
             navLinks.forEach(l => l.classList.remove('active'));
             const projectsNavLink = document.querySelector('.nav-link[data-category="projects"]');
             if (projectsNavLink) projectsNavLink.classList.add('active');
@@ -934,7 +934,7 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 projectGrid.style.display = 'grid';
                 if (studioSection) studioSection.classList.remove('active');
-                document.querySelector('.category-bar').style.display = 'flex';
+                document.querySelector('.category-bar').style.display = '';
 
                 const scrollY = window.pageYOffset;
                 const heroHeight = heroSection ? heroSection.offsetHeight : 0;
