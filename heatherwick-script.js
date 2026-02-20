@@ -782,8 +782,12 @@ document.addEventListener('DOMContentLoaded', () => {
         'videos/projects/villakosmos/villakosmos_033.mp4'
     ];
     const companyVideos = [
+        'videos/company/steellife/steellife (1).mp4',
+        'videos/company/steellife/steellife (2).mp4',
+        'videos/company/steellife/steellife (3).mp4',
         'videos/company/steellife/steellife (6).mp4',
-        'videos/company/steellife/steellife (7).mp4'
+        'videos/company/steellife/steellife (7).mp4',
+        'videos/company/steellife/steellife (8).mp4'
     ];
 
     function setRandomVideos() {
