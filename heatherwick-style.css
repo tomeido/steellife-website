@@ -498,7 +498,7 @@ img {
    ===================================================== */
 .category-bar {
     position: fixed;
-    top: 4.25rem;
+    top: 4.875rem;
     left: 0;
     right: 0;
     z-index: 10000;
@@ -506,7 +506,6 @@ img {
     gap: 1rem;
     padding: 0.5rem 2rem 1rem 2rem;
     background: var(--bg-primary);
-    box-shadow: 0 -0.5rem 0 var(--bg-primary);
 }
 
 .category-btn {
